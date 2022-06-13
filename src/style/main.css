@@ -1,0 +1,32 @@
+.icon-name {
+  /* margin-top: 300px; */
+}
+
+.header {
+  background-color: #ffece1;
+  margin: 0;
+}
+.sider {
+  margin: 0;
+  padding: 0;
+}
+.logo-name {
+  /* margin: 30px; */
+  display: flex;
+}
+.logo-name p {
+  color: #f17228;
+  position: static;
+  width: 112px;
+  height: 24px;
+  padding-top: 10px;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 24px;
+}
+.contentLay {
+  background: linear-gradient(#f2c3a8, rgb(255, 255, 255));
+  bottom: 0;
+}

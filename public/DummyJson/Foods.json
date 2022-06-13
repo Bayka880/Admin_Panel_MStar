@@ -1,0 +1,32 @@
+{
+  "foods": [
+    {
+      "category": "Үндсэн хоол",
+      "category_id": "618b4838d9ba304e7d5c83dd",
+      "discount": 20,
+      "image": "/food/pumpkin_soup.png",
+      "ingredients": "Хулуу, төмс, лууван , сонгино, цөцгийн тос, самрын үр",
+      "name": "Хулууны зутан",
+      "portion": 1,
+      "price": 6800,
+      "sales": false,
+      "stock": 10,
+      "tumb_img": "1_tumb.png",
+      "_id": "6182248ec0d7632762f77542"
+    },
+    {
+      "category": "Үндсэн хоол",
+      "category_id": "618b4838d9ba304e7d5c83dd",
+      "discount": 10,
+      "image": "/food/italian_pizza.png",
+      "ingredients": "Улаан лоолийн нухаш, улаан буудайн гурил, бяслаг",
+      "name": "Итали пицца",
+      "portion": 4,
+      "price": 35800,
+      "sales": false,
+      "stock": 10,
+      "tumb_img": "2_tumb.png",
+      "_id": "61822b0dc0d7632762f7754c"
+    }
+  ]
+}

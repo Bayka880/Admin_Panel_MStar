@@ -1,0 +1,67 @@
+{
+  "Orders": [
+    {
+      "date": "2021/09/20 09:32",
+      "number": "00001",
+      "customer": "Boldo",
+      "order": [
+        {
+          "name": "Хулууны зутан",
+          "quantity": 1,
+          "price": 6800
+        },
+        {
+          "name": "Итали пицца",
+          "quantity": 4,
+          "price": 35800
+        }
+      ],
+      "total": 93293,
+      "payment": "Kart",
+      "phone": 99119911,
+      "state": "хүлээн авсан"
+    },
+    {
+      "date": "2021/09/20 09:32",
+      "number": "00001",
+      "customer": "Boldo",
+      "order": [
+        {
+          "name": "Хулууны зутан",
+          "quantity": 1,
+          "price": 6800
+        },
+        {
+          "name": "Итали пицца",
+          "quantity": 4,
+          "price": 35800
+        }
+      ],
+      "total": 93293,
+      "payment": "Kart",
+      "phone": 99119911,
+      "state": "хүлээн авсан"
+    },
+    {
+      "date": "2021/09/20 09:32",
+      "number": "00001",
+      "customer": "Boldo",
+      "order": [
+        {
+          "name": "Хулууны зутан",
+          "quantity": 1,
+          "price": 6800
+        },
+        {
+          "name": "Итали пицца",
+          "quantity": 4,
+          "price": 35800
+        }
+      ],
+      "total": 93293,
+      "payment": "Kart",
+      "phone": 99119911,
+      "state": "хүлээн авсан"
+    }
+  ]
+}
