@@ -8,7 +8,7 @@ import Users from "./SideMenu/Users";
 import Deliverymen from "./SideMenu/Deliverymen";
 import "antd/dist/antd.css";
 import "../style/main.css";
-import { Layout, Menu, Dropdown, Space } from "antd";
+import { Layout, Menu, Dropdown, Space, Button, Drawer } from "antd";
 import Icons from "../pictures/icons/icons.js";
 import { MENU } from "../util/constants";
 import { DownOutlined } from "@ant-design/icons";
@@ -18,16 +18,52 @@ import { useUser } from "../contexts/UserContext";
 export default function Dashboard() {
   const { Header, Content, Footer, Sider } = Layout;
   const [user, setUser] = useUser();
-  let navigate = useNavigate();
   function hanler() {
     localStorage.removeItem("userInfo");
     setUser(null);
   }
+  const [visible, setVisible] = useState(false);
+
+  const showDrawer = () => {
+    setVisible(true);
+  };
+
+  const onClose = () => {
+    setVisible(false);
+  };
   const menu = (
     <Menu
       items={[
         {
-          label: <button className="admin-button">Тохиргоо</button>,
+          label: (
+            <>
+              <button onClick={showDrawer} className="admin-button">
+                Тохиргоо
+              </button>
+              <Drawer
+                title="Тохиргоо"
+                placement="right"
+                onClose={onClose}
+                visible={visible}
+              >
+                <form>
+                  <label htmlFor="email">И-мэйл хаяг</label>
+                  <div>
+                    <input type="text" />
+                  </div>
+                  <label htmlFor="email">Нууц үг </label>
+                  <div>
+                    <input type="text" />
+                  </div>
+                  <label htmlFor="email">Нууц үг</label>
+                  <div>
+                    <input type="text" />
+                  </div>
+                  <button>Хадгалах</button>
+                </form>
+              </Drawer>
+            </>
+          ),
           key: "0",
         },
         {
