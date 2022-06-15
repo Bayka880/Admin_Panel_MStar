@@ -1,5 +1,5 @@
 const loginUser = async (credentials) => {
-  return await fetch("http://52.221.191.153/admin/login	", {
+  return await fetch("https://dev-api.mstars.mn/admin/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

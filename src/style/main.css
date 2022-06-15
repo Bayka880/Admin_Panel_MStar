@@ -5,6 +5,7 @@
 .header {
   background-color: #ffece1;
   margin: 0;
+  text-align: right;
 }
 .sider {
   margin: 0;
@@ -29,4 +30,12 @@
 .contentLay {
   background: linear-gradient(#f2c3a8, rgb(255, 255, 255));
   bottom: 0;
+}
+.admin {
+  padding-top: 5px;
+}
+.admin-button,
+.log-out-button {
+  border: none;
+  background-color: white;
 }

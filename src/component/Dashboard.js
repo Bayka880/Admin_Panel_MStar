@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route, Link, Navigate } from "react-router-dom";
+import { Routes, Route, Link, Navigate, useNavigate } from "react-router-dom";
 import ControlPanel from "./SideMenu/ControlPanel";
 import Orders from "./SideMenu/Orders";
 import Invoices from "./SideMenu/Invoices";
@@ -8,12 +8,39 @@ import Users from "./SideMenu/Users";
 import Deliverymen from "./SideMenu/Deliverymen";
 import "antd/dist/antd.css";
 import "../style/main.css";
-import { Layout, Menu } from "antd";
+import { Layout, Menu, Dropdown, Space } from "antd";
 import Icons from "../pictures/icons/icons.js";
 import { MENU } from "../util/constants";
+import { DownOutlined } from "@ant-design/icons";
+import { useState } from "react";
+import { useUser } from "../contexts/UserContext";
 
 export default function Dashboard() {
   const { Header, Content, Footer, Sider } = Layout;
+  const [user, setUser] = useUser();
+  let navigate = useNavigate();
+  function hanler() {
+    localStorage.removeItem("userInfo");
+    setUser(null);
+  }
+  const menu = (
+    <Menu
+      items={[
+        {
+          label: <button className="admin-button">Тохиргоо</button>,
+          key: "0",
+        },
+        {
+          label: (
+            <button onClick={hanler} className="log-out-button">
+              Гарах
+            </button>
+          ),
+          key: "1",
+        },
+      ]}
+    />
+  );
   return (
     <>
       <Layout style={{ margin: "0" }}>
@@ -43,7 +70,21 @@ export default function Dashboard() {
           </Menu>
         </Sider>
         <Layout className="contentLay">
-          <Header className="header" />
+          <Header className="header">
+            <Dropdown overlay={menu} trigger={["click"]}>
+              <a onClick={(e) => e.preventDefault()}>
+                <Space
+                  style={{
+                    color: "#F17228",
+                  }}
+                >
+                  <img src="./pictures/admin.svg" alt="" />
+                  <div className="admin">Админ</div>
+                </Space>
+              </a>
+            </Dropdown>
+          </Header>
+
           <Content style={{ margin: "0 16px" }}>
             <Routes
               className="site-layout-background"

@@ -7,6 +7,7 @@ import { BrowserRouter } from "react-router-dom";
 import { UserProvider } from "./contexts/UserContext";
 import { OrderProvider } from "./contexts/OrderContext";
 import Login from "./component/Login";
+import "antd/dist/antd.css";
 ReactDOM.render(
   <React.StrictMode>
     <UserProvider>

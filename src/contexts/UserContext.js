@@ -19,6 +19,13 @@ export const UserProvider = (props) => {
       });
     }
   }, []);
+  useEffect(() => {
+    if (user) {
+      localStorage.setItem("userInfo", JSON.stringify(user));
+    } else {
+      localStorage.removeItem("userInfo");
+    }
+  }, [user]);
   return (
     <UserContext.Provider value={[user, setUser]}>
       {props.children}

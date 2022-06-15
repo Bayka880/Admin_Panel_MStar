@@ -5,12 +5,13 @@ import { useState } from "react";
 import moment from "moment";
 
 function App() {
-  // const [user, setUser] = useUser();
-  const [user, setUser] = useState(true);
+  const [user, setUser] = useUser();
+
   console.log(
     moment("2011-10:31 0923", "YYYYMMDD HHmm").format("YYYY/MM/DD --- HH:mm")
   );
-  return <>{user ? <Login /> : <Dashboard />}</>;
+
+  return <>{user ? <Dashboard /> : <Login />}</>;
 }
 
 export default App;
