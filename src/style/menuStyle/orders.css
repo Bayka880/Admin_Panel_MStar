@@ -1,5 +1,7 @@
 .header {
-  text-align: center;
+  display: flex;
+  justify-content: space-between;
+
   text-decoration: none;
 }
 .header span {
@@ -8,6 +10,6 @@
 
 .cols {
   /* margin-left: 30px; */
-  padding-left: 50px;
+  /* padding-left: 10px; */
   /* color: aliceblue; */
 }

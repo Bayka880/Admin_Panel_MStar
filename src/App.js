@@ -7,9 +7,9 @@ import moment from "moment";
 function App() {
   const [user, setUser] = useUser();
 
-  console.log(
-    moment("2011-10:31 0923", "YYYYMMDD HHmm").format("YYYY/MM/DD --- HH:mm")
-  );
+  // console.log(
+  //   moment("2011-10:31 0923", "YYYYMMDD HHmm").format("YYYY/MM/DD --- HH:mm")
+  // );
 
   return <>{user ? <Dashboard /> : <Login />}</>;
 }

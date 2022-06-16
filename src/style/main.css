@@ -1,7 +1,3 @@
-.icon-name {
-  /* margin-top: 300px; */
-}
-
 .header {
   background-color: #ffece1;
   margin: 0;
@@ -12,7 +8,6 @@
   padding: 0;
 }
 .logo-name {
-  /* margin: 30px; */
   display: flex;
 }
 .logo-name p {

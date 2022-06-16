@@ -16,6 +16,7 @@ export const UserProvider = (props) => {
         email: data.email,
         address: data.address,
         id: data._id,
+        token: data.token,
       });
     }
   }, []);

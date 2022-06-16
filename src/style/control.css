@@ -1,0 +1,23 @@
+.retangle-icon {
+  width: 8px;
+  height: 31px;
+  background-color: #f17228;
+}
+.control-panel {
+  color: #363636;
+  font-size: 18px;
+  font-weight: 700;
+  padding-left: 10px;
+}
+.name-and-icon {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.sum-of-user {
+  font-size: 12px;
+  font-weight: 600;
+  color: #f17228;
+  padding-left: 10px;
+}

@@ -6,17 +6,18 @@ import { useUser } from "../contexts/UserContext";
 export default function Login() {
   const [user, setUser] = useUser();
   const onFinish = (values) => {
-    console.log(values);
     userService
       .loginUser(values)
       .then((res) => res.json())
       .then((res) => {
+        console.log(res.token);
         if (res.success === true) {
           setUser({
             userName: res.data.name,
             email: res.data.email,
             address: res.data.address,
             id: res.data.id,
+            token: res.token,
           });
         }
       });

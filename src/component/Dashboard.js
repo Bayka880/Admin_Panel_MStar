@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route, Link, Navigate, useNavigate } from "react-router-dom";
+import { Routes, Route, Link, Navigate } from "react-router-dom";
 import ControlPanel from "./SideMenu/ControlPanel";
 import Orders from "./SideMenu/Orders";
 import Invoices from "./SideMenu/Invoices";
@@ -8,16 +8,62 @@ import Users from "./SideMenu/Users";
 import Deliverymen from "./SideMenu/Deliverymen";
 import "antd/dist/antd.css";
 import "../style/main.css";
-import { Layout, Menu, Dropdown, Space, Button, Drawer } from "antd";
+import {
+  Layout,
+  Menu,
+  Dropdown,
+  Space,
+  Drawer,
+  Button,
+  Form,
+  Input,
+  Select,
+} from "antd";
 import Icons from "../pictures/icons/icons.js";
 import { MENU } from "../util/constants";
-import { DownOutlined } from "@ant-design/icons";
 import { useState } from "react";
 import { useUser } from "../contexts/UserContext";
+import { userService } from "../services/userService";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useOrder } from "../contexts/OrderContext";
+
+const formItemLayout = {
+  labelCol: {
+    xs: {
+      span: 16,
+    },
+    sm: {
+      span: 8,
+    },
+  },
+  wrapperCol: {
+    xs: {
+      span: 24,
+    },
+    sm: {
+      span: 16,
+    },
+  },
+};
+const tailFormItemLayout = {
+  wrapperCol: {
+    xs: {
+      span: 24,
+      offset: 0,
+    },
+    sm: {
+      span: 16,
+      offset: 8,
+    },
+  },
+};
 
 export default function Dashboard() {
   const { Header, Content, Footer, Sider } = Layout;
   const [user, setUser] = useUser();
+
+  console.log(user);
   function hanler() {
     localStorage.removeItem("userInfo");
     setUser(null);
@@ -31,6 +77,27 @@ export default function Dashboard() {
   const onClose = () => {
     setVisible(false);
   };
+  const [form] = Form.useForm();
+
+  const onFinish = (values) => {
+    userService
+      .editUserInfo({
+        email: user.email,
+        name: values.username,
+        password: values.confirm,
+        phone: values.phone,
+        token: user.token,
+      })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+        if (res.success === true) {
+          onClose(setVisible(false));
+          toast("Хэрэглэгчийн мэдээлэл амжилттай хадгалагдлаа");
+        }
+      });
+  };
+
   const menu = (
     <Menu
       items={[
@@ -46,21 +113,89 @@ export default function Dashboard() {
                 onClose={onClose}
                 visible={visible}
               >
-                <form>
-                  <label htmlFor="email">И-мэйл хаяг</label>
-                  <div>
-                    <input type="text" />
-                  </div>
-                  <label htmlFor="email">Нууц үг </label>
-                  <div>
-                    <input type="text" />
-                  </div>
-                  <label htmlFor="email">Нууц үг</label>
-                  <div>
-                    <input type="text" />
-                  </div>
-                  <button>Хадгалах</button>
-                </form>
+                <Form
+                  {...formItemLayout}
+                  form={form}
+                  name="saveuser"
+                  onFinish={onFinish}
+                  scrollToFirstError
+                >
+                  <Form.Item
+                    name="username"
+                    label="username"
+                    rules={[
+                      {
+                        type: "name",
+                        message: "Хэрэглэгчийн нэрээ оруулна уу!!",
+                      },
+                      {
+                        required: true,
+                        message: "Хэрэглэгчийн нэрээ оруулна уу !!",
+                      },
+                    ]}
+                  >
+                    <Input />
+                  </Form.Item>
+
+                  <Form.Item
+                    name="password"
+                    label="Password"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please input your password!",
+                      },
+                    ]}
+                    hasFeedback
+                  >
+                    <Input.Password />
+                  </Form.Item>
+
+                  <Form.Item
+                    name="confirm"
+                    label="Confirm Password"
+                    dependencies={["password"]}
+                    hasFeedback
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please confirm your password!",
+                      },
+                      ({ getFieldValue }) => ({
+                        validator(_, value) {
+                          if (!value || getFieldValue("password") === value) {
+                            return Promise.resolve();
+                          }
+
+                          return Promise.reject(
+                            new Error(
+                              "The two passwords that you entered do not match!"
+                            )
+                          );
+                        },
+                      }),
+                    ]}
+                  >
+                    <Input.Password />
+                  </Form.Item>
+                  <Form.Item
+                    name="phone"
+                    label="Утас"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please input your phone!",
+                      },
+                    ]}
+                  >
+                    <Input></Input>
+                  </Form.Item>
+                  <Form.Item {...tailFormItemLayout}>
+                    <Button type="primary" htmlType="submit">
+                      Хадгалах
+                    </Button>
+                  </Form.Item>
+                </Form>
               </Drawer>
             </>
           ),
@@ -121,7 +256,14 @@ export default function Dashboard() {
             </Dropdown>
           </Header>
 
-          <Content style={{ margin: "0 16px" }}>
+          <Content
+            style={{
+              marginLeft: "150px",
+              minHeight: "100vh",
+              minWidth: "90vh",
+              marginRight: "150px",
+            }}
+          >
             <Routes
               className="site-layout-background"
               style={{ padding: 24, minHeight: 360 }}
@@ -138,8 +280,8 @@ export default function Dashboard() {
           <Footer
             style={{
               textAlign: "right",
+              marginTop: "auto",
 
-              bottom: 0,
               float: "right",
             }}
           >
@@ -149,6 +291,7 @@ export default function Dashboard() {
           </Footer>
         </Layout>
       </Layout>
+      <ToastContainer />
     </>
   );
 }
