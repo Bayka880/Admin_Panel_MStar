@@ -1,15 +1,44 @@
-.header {
+.order-header {
   display: flex;
   justify-content: space-between;
-
   text-decoration: none;
 }
-.header span {
-  margin-right: 40px;
+.header-section {
+  background-color: #f0f0f0;
+}
+.order-header span {
+  /* margin-right: 40px; */
+  font-weight: 600;
 }
 
 .cols {
-  /* margin-left: 30px; */
-  /* padding-left: 10px; */
-  /* color: aliceblue; */
+  margin-left: 30px;
+  padding-left: 10px;
+  color: aliceblue;
+}
+.listItems {
+  background-color: #ffffff;
+}
+.rowss {
+  justify-content: space-between;
+}
+.button-more,
+.button-delete {
+  border: none;
+  background-color: white;
+}
+.button-delete {
+  color: #f63a3a;
+}
+.selecting-field {
+  font-size: 12px;
+  width: 120px;
+  height: 30px;
+  background-color: #d7e8ff;
+  border-radius: 10px;
+  border: none;
+  text-align: center;
+}
+.pagiantion {
+  text-align: center;
 }

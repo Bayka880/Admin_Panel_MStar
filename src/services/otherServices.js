@@ -1,11 +1,15 @@
-const getAllOrders = async (orders) => {
-  return await fetch("https://dev-api.mstars.mn/api/orders", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(orders),
-  });
+const getAllOrders = async (orders, pagenumber) => {
+  console.log(pagenumber);
+  return await fetch(
+    `https://dev-api.mstars.mn/api/orders?page=${pagenumber}`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(orders, pagenumber),
+    }
+  );
 };
 // const registerUser = async (credentials) => {
 //   return await fetch("http://52.221.191.153/admin/register", {
