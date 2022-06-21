@@ -11,6 +11,7 @@ import {
   Menu,
   Space,
   Button,
+  Drawer,
 } from "antd";
 import { DownOutlined } from "@ant-design/icons";
 import "../../style/menuStyle/orders.css";
@@ -18,37 +19,17 @@ import { useUser } from "../../contexts/UserContext";
 import moment from "moment";
 import { Select, Checkbox } from "antd";
 import { useState } from "react";
+import Offcanvas from "../Offcanvas";
 const { Option } = Select;
 const CheckboxGroup = Checkbox.Group;
-const menu = (
-  <Menu
-    items={[
-      {
-        label: <button className="button-more">Харах</button>,
-        key: "0",
-      },
-      {
-        label: (
-          <button
-            className="button-delete"
-            onClick={(e) => {
-              console.log(e);
-            }}
-          >
-            Устгах
-          </button>
-        ),
-        key: "1",
-      },
-    ]}
-  />
-);
+
 export default function Orders() {
   const [order, setOrder] = useOrder();
   const [user, setUser] = useUser();
   const [filterOrder, setFilterOrder] = useState();
   const [pagenumber, setPageNumber] = useState(1);
   const [orderId, setOrderId] = useState();
+  const [visible, setVisible] = useState(false);
   const plainOptions = [];
   // console.log("usestat garj bga", filterOrder);
   const getAllOrders = async (orders) => {
@@ -68,10 +49,54 @@ export default function Orders() {
       .then((res) => res.json())
       .then((res) => setOrder(res.data.docs));
   }, [pagenumber]);
+  const showDrawer = () => {
+    setVisible(true);
+  };
+
+  const onClose = () => {
+    setVisible(false);
+  };
+  const menu = (
+    <Menu
+      items={[
+        {
+          label: (
+            <>
+              <button className="button-more" onClick={showDrawer}>
+                Харах
+              </button>
+              <Drawer
+                title="#001"
+                placement="right"
+                onClose={onClose}
+                visible={visible}
+              >
+                <Offcanvas orderId={orderId} />
+              </Drawer>
+            </>
+          ),
+          key: "0",
+        },
+        {
+          label: (
+            <button
+              className="button-delete"
+              onClick={(e) => {
+                console.log(e);
+              }}
+            >
+              Устгах
+            </button>
+          ),
+          key: "1",
+        },
+      ]}
+    />
+  );
 
   const onChangeSelected = (value) => {
-    console.log(`selected ${value}`);
-    setFilterOrder(value);
+    console.log(value);
+    setOrder(order.filter((status) => status.status === value));
   };
   const onSearch = (value) => {
     console.log("search:", value);
@@ -82,7 +107,7 @@ export default function Orders() {
   const [checkedList, setCheckedList] = useState();
   const [indeterminate, setIndeterminate] = useState(true);
   const [checkAll, setCheckAll] = useState(false);
-  const delteOrder = () => {};
+
   const onChange = (list) => {
     setCheckedList(list);
     setIndeterminate(!!list.length && list.length < plainOptions.length);
@@ -105,28 +130,16 @@ export default function Orders() {
     arr = selectedOption;
   }
   function orderRemove(e) {
-    e.preventDefault();
-    console.log(e);
-    setOrderId(order.user_id);
+    setOrderId(e);
   }
   console.log(order);
-  console.log(orderId);
   return (
     <div>
       <div>
-        <Select
-          showSearch
-          optionFilterProp="children"
-          defaultValue="Бүгд"
-          onChange={onChangeSelected}
-          onSearch={onSearch}
-          filterOption={(input, option) =>
-            option.children.toLowerCase().includes(input.toLowerCase())
-          }
-        >
-          <Option value="Хүлээн авсан">Хүлээн авсан</Option>
-          <Option value="Амжилттай">Амжилттай</Option>
-          <Option value="Цуцлагдсан">Цуцлагдсан</Option>
+        <Select defaultValue="Бүгд" onChange={(e) => onChangeSelected(e)}>
+          <Option value="waiting">Хүлээн авсан</Option>
+          <Option value="success">Амжилттай</Option>
+          <Option value="canceled">Цуцлагдсан</Option>
         </Select>
       </div>
       <Divider orientation="left">Захиалгууд</Divider>
@@ -220,7 +233,7 @@ export default function Orders() {
                   </Col>
                   <Col>
                     <Dropdown overlay={menu} trigger={["click"]}>
-                      <a onClick={orderRemove}>
+                      <a onClick={() => orderRemove(item._id)}>
                         <Space>
                           <img src="../pictures/3dot.svg" alt="" />
                         </Space>
